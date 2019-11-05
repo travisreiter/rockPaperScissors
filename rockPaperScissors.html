@@ -9,8 +9,7 @@
 <body>
 
     <script>
-       
-        var play = 1;
+
 
         function computerPlay() {
             return Math.floor(Math.random() * Math.floor(3));
@@ -38,40 +37,62 @@
             playerSelection = requestUserPlay();
             computerSelection = computerPlay();
             console.log(playerSelection, computerSelection);
+            winner = "";
 
             if (playerSelection === computerSelection) {
                 console.log("No winner!");
             } else if (playerSelection == 0 && computerSelection == 1) {
                 console.log("You lose! Paper beats rock.");
+                winner = "computer";
             } else if (playerSelection == 0 && computerSelection == 2) {
                 console.log("You win! Rock beats scissors");
+                winner = "user";
             } else if (playerSelection == 1 && computerSelection == 0) {
                 console.log("You win! Paper beats rock.");
+                winner = "user";
             } else if (playerSelection == 1 && computerSelection == 2) {
-                console.log("You lost! Scissors beats paper");
+                console.log("You lose! Scissors beats paper");
+                winner = "computer";
             } else if (playerSelection == 2 && computerSelection == 0) {
                 console.log("You lose! Rock beats Scissors.");
+                winner = "computer";
             } else if (playerSelection == 2 && computerSelection == 1) {
                 console.log("You win! Scissors beats paper");
+                winner = "user";
             } else {
                 console.log("Something went real wonky here.");
             }
 
-            
+            return winner;           
 
         }
 
-        while (play) {
-            playOneRound();
-            var replay = prompt("Play again? Enter yes for yes.");
-            if (replay !== "yes") {
-                console.log("replay selection is " + replay);
-                play--;
-            } else {
-                console.log("replay selection is " + replay);
+        function game() { 
+
+        var i;
+        var userScore = 0;
+        var computerScore = 0;
+        for (i = 0; i < 5; i++) {
+            roundWinner = playOneRound();
+
+            if (roundWinner == "user") {
+                userScore++;
+            } else if (roundWinner == "computer") {
+                computerScore++;
             }
-
+            }   
+        if (computerScore > userScore) {
+            window.alert(`The computer wins ${computerScore} to ${userScore}!`);
+        } else if (userScore > computerScore) {
+            window.alert(`You beat the computer ${userScore} to ${computerScore}!`);
+        } else if (userScore == computerScore) {
+            window.alert(`You tied with the computer ${userScore} to ${computerScore}`);
+        } else {
+            window.alert("Something real wonky happened here");
         }
+        }
+
+        game();
 
     </script>
 </body>
